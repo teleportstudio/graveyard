@@ -27,11 +27,34 @@ body {
   min-width: 320px;
   font-family: "Manrope", sans-serif;
   color: var(--text);
+  position: relative;
   background:
-    radial-gradient(circle at 15% 10%, rgba(154, 123, 255, 0.3), transparent 22%),
-    radial-gradient(circle at 85% 12%, rgba(79, 224, 255, 0.18), transparent 18%),
-    radial-gradient(circle at 50% 100%, rgba(255, 91, 143, 0.18), transparent 28%),
-    linear-gradient(180deg, #140f1f 0%, #0d0b14 26%, #120d19 54%, #09070d 100%);
+    linear-gradient(180deg, #6f85b1 0%, #5f769f 34%, #4b617f 62%, #2f4457 100%);
+}
+
+body::before,
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+}
+
+body::before {
+  z-index: -2;
+  background:
+    linear-gradient(180deg, rgba(209, 223, 244, 0.1) 0%, rgba(12, 20, 28, 0.84) 100%),
+    radial-gradient(circle at 16% 22%, rgba(219, 233, 255, 0.08), transparent 26%),
+    radial-gradient(circle at 82% 18%, rgba(196, 219, 255, 0.06), transparent 24%),
+    url("design_elements/background.png") center top / cover no-repeat fixed;
+}
+
+body::after {
+  z-index: -1;
+  background:
+    radial-gradient(circle at 50% 38%, rgba(237, 244, 255, 0.04) 0%, rgba(237, 244, 255, 0) 44%),
+    radial-gradient(circle at 50% 52%, rgba(255, 255, 255, 0) 40%, rgba(10, 18, 25, 0.8) 100%),
+    linear-gradient(180deg, rgba(10, 18, 25, 0.34) 0%, rgba(10, 18, 25, 0.72) 100%);
 }
 
 img {
@@ -69,10 +92,7 @@ a {
 }
 
 .hero::before {
-  background:
-    radial-gradient(circle at 70% 28%, rgba(79, 224, 255, 0.28), transparent 20%),
-    radial-gradient(circle at 24% 36%, rgba(255, 91, 143, 0.26), transparent 18%),
-    linear-gradient(180deg, rgba(11, 8, 18, 0.02) 0%, rgba(11, 8, 18, 0.18) 100%);
+  background: linear-gradient(180deg, rgba(11, 8, 18, 0.02) 0%, rgba(11, 8, 18, 0.16) 100%);
 }
 
 .topbar {
@@ -95,14 +115,14 @@ a {
   text-transform: uppercase;
 }
 
-.brand,
 .topbar-links a {
   font-size: 0.82rem;
   font-weight: 800;
 }
 
-.brand {
-  color: var(--cyan);
+.brand-logo {
+  width: clamp(180px, 22vw, 290px);
+  height: auto;
 }
 
 .topbar-links {
@@ -125,7 +145,7 @@ a {
 
 .hero-layout {
   grid-template-columns: minmax(0, 1.35fr) minmax(280px, 0.75fr);
-  align-items: end;
+  align-items: center;
   padding: 92px 0 24px;
 }
 
@@ -232,10 +252,15 @@ h3 {
 
 .hero-side {
   align-self: center;
-  padding: 28px 0 28px 28px;
-  border-left: 1px solid var(--line);
-  background: rgba(10, 8, 16, 0.18);
-  border-radius: 20px;
+  display: grid;
+  grid-template-columns: minmax(260px, 1fr) auto;
+  align-items: center;
+  gap: 10px;
+  padding: 0;
+  border-left: 0;
+  background: none;
+  border-radius: 0;
+  justify-items: end;
 }
 
 .hero-side-title {
@@ -246,26 +271,30 @@ h3 {
   line-height: 1.3;
 }
 
-.hero-runes {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  margin-top: 22px;
+.hero-side-text p:last-child {
+  margin: 0;
 }
 
-.hero-runes span {
-  padding: 10px 14px;
-  border: 1px solid rgba(151, 255, 124, 0.24);
-  border-radius: 999px;
-  background: rgba(151, 255, 124, 0.06);
-  font-size: 0.8rem;
-  color: #ffffff;
-  font-weight: 800;
+.hero-side-text {
+  max-width: 360px;
+  padding: 24px 28px;
+  border-radius: 22px;
+  background: linear-gradient(180deg, rgba(54, 41, 70, 0.52) 0%, rgba(25, 23, 35, 0.44) 100%);
+  box-shadow: 0 20px 46px rgba(0, 0, 0, 0.22);
+}
+
+.hero-character {
+  width: min(640px, 100%);
+  height: auto;
+  justify-self: end;
+  margin-right: -52px;
+  filter: drop-shadow(0 22px 44px rgba(0, 0, 0, 0.54));
 }
 
 .hero .eyebrow,
 .hero .topbar-links a,
-.hero .brand {
+.hero h1,
+.hero .brand-logo {
   color: #ffffff;
 }
 
@@ -281,7 +310,6 @@ h3 {
 .hero .tagline,
 .hero .hero-side p,
 .hero .hero-highlights li,
-.hero .hero-runes span,
 .hero .eyebrow,
 .hero .hero-side-title {
   font-size: 1.05rem;
@@ -296,8 +324,7 @@ h3 {
 }
 
 .hero .eyebrow,
-.hero .hero-highlights li,
-.hero .hero-runes span {
+.hero .hero-highlights li {
   text-transform: none;
   letter-spacing: 0;
   font-weight: 400;
@@ -347,9 +374,8 @@ h3 {
 .hero .hero-side-title,
 .hero .hero-side p,
 .hero .hero-highlights li,
-.hero .hero-runes span,
 .hero .topbar-links a,
-.hero .brand,
+.hero .brand-logo,
 .hero h1,
 .section-story .eyebrow,
 .section-story h2,
@@ -526,6 +552,11 @@ h3 {
   align-items: center;
 }
 
+.footer-logo {
+  width: clamp(220px, 26vw, 340px);
+  height: auto;
+}
+
 .contact-list {
   display: flex;
   flex-wrap: wrap;
@@ -545,6 +576,14 @@ h3 {
 }
 
 @media (max-width: 960px) {
+  body::before {
+    background:
+      linear-gradient(180deg, rgba(209, 223, 244, 0.08) 0%, rgba(12, 20, 28, 0.8) 100%),
+      radial-gradient(circle at 16% 22%, rgba(219, 233, 255, 0.06), transparent 26%),
+      radial-gradient(circle at 82% 18%, rgba(196, 219, 255, 0.05), transparent 24%),
+      url("design_elements/background.png") center top / cover no-repeat;
+  }
+
   .hero-layout,
   .story-columns,
   .footer-layout {
@@ -557,8 +596,29 @@ h3 {
     border-left: 0;
   }
 
+  .hero-side {
+    grid-template-columns: 1fr;
+    justify-items: start;
+  }
+
+  .hero-character {
+    width: min(420px, 100%);
+    justify-self: start;
+    margin-right: 0;
+  }
+
   .contact-list {
     justify-content: start;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  body::before {
+    background:
+      linear-gradient(180deg, rgba(209, 223, 244, 0.08) 0%, rgba(12, 20, 28, 0.8) 100%),
+      radial-gradient(circle at 16% 22%, rgba(219, 233, 255, 0.06), transparent 26%),
+      radial-gradient(circle at 82% 18%, rgba(196, 219, 255, 0.05), transparent 24%),
+      url("design_elements/background.png") center top / cover no-repeat;
   }
 }
 
@@ -598,6 +658,15 @@ h3 {
   .hero-layout {
     padding-top: 54px;
   }
+
+  .brand-logo {
+    width: min(240px, 72vw);
+  }
+
+  .hero-side-text {
+    max-width: none;
+    width: 100%;
+  }
 }
 
 /* Force hero typography to match the second section references exactly. */
@@ -614,8 +683,7 @@ h3 {
 .hero .tagline,
 .hero .hero-side-title,
 .hero .hero-side p,
-.hero .hero-highlights li,
-.hero .hero-runes span {
+.hero .hero-highlights li {
   font-family: "Manrope", sans-serif !important;
   font-size: 1.05rem !important;
   line-height: 1.9 !important;
@@ -628,9 +696,8 @@ h3 {
 .hero .eyebrow,
 .hero .hero-side-title,
 .hero .hero-highlights li,
-.hero .hero-runes span,
 .hero .topbar-links a,
-.hero .brand {
+.hero .brand-logo {
   font-weight: 800 !important;
   color: #ffffff !important;
 }
