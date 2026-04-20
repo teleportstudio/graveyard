@@ -558,21 +558,81 @@ h3 {
 }
 
 .contact-list {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: end;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(250px, 1fr));
   gap: 12px;
+  min-width: min(620px, 100%);
 }
 
-.contact-list a {
+.contact-chip {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 56px;
+  padding: 0 18px;
+  border: 1px solid rgba(79, 224, 255, 0.28);
+  border-radius: 14px;
+  background: rgba(15, 27, 36, 0.62);
+  color: #ffffff;
+  text-decoration: none;
+  font-family: "Manrope", sans-serif;
+  font-size: 0.8rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform 0.25s ease, background 0.25s ease, border-color 0.25s ease;
+}
+
+.contact-chip:hover {
+  background: rgba(20, 38, 50, 0.8);
+  border-color: rgba(79, 224, 255, 0.48);
+}
+
+.contact-icon {
+  flex: 0 0 24px;
+  width: 24px;
+  height: 24px;
   display: inline-flex;
   align-items: center;
-  min-height: 52px;
-  padding: 0 18px;
-  border: 1px solid rgba(79, 224, 255, 0.18);
+  justify-content: center;
+}
+
+.contact-icon svg {
+  width: 100%;
+  height: 100%;
+  fill: currentColor;
+}
+
+.contact-icon.telegram { color: #27a7e7; }
+.contact-icon.gmail { color: #ea4335; }
+.contact-icon.youtube { color: #ff0033; }
+.contact-icon.instagram { color: #ff4fa4; }
+.contact-icon.tiktok { color: #ffffff; }
+
+.contact-copy {
+  text-align: left;
+}
+
+.copied-toast {
+  position: absolute;
+  top: -10px;
+  right: 10px;
+  transform: translateY(-100%);
+  padding: 4px 10px;
   border-radius: 999px;
-  background: rgba(79, 224, 255, 0.05);
-  font-size: 0.8rem;
+  background: rgba(24, 39, 49, 0.95);
+  border: 1px solid rgba(79, 224, 255, 0.45);
+  color: #d8f5ff;
+  font-size: 0.7rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease;
+}
+
+.contact-copy.is-copied .copied-toast {
+  opacity: 1;
 }
 
 @media (max-width: 960px) {
@@ -607,9 +667,7 @@ h3 {
     margin-right: 0;
   }
 
-  .contact-list {
-    justify-content: start;
-  }
+  .contact-list { min-width: 0; }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -644,15 +702,23 @@ h3 {
     width: 100%;
   }
 
+  .contact-list {
+    grid-template-columns: 1fr;
+  }
+
   .gallery-controls {
     display: grid;
     grid-template-columns: 1fr 1fr;
   }
 
   .gallery-button,
-  .contact-list a {
+  .contact-chip {
     width: 100%;
     justify-content: center;
+  }
+
+  .contact-copy {
+    justify-content: flex-start;
   }
 
   .hero-layout {

@@ -44,3 +44,31 @@ track?.addEventListener("touchend", (event) => {
 }, { passive: true });
 
 renderSlide(0);
+
+const copyEmailButton = document.querySelector("[data-copy-email]");
+let copyToastTimer;
+
+copyEmailButton?.addEventListener("click", async () => {
+  const email = copyEmailButton.dataset.copyEmail;
+
+  if (!email) {
+    return;
+  }
+
+  try {
+    await navigator.clipboard.writeText(email);
+  } catch (error) {
+    const tempInput = document.createElement("input");
+    tempInput.value = email;
+    document.body.appendChild(tempInput);
+    tempInput.select();
+    document.execCommand("copy");
+    document.body.removeChild(tempInput);
+  }
+
+  copyEmailButton.classList.add("is-copied");
+  window.clearTimeout(copyToastTimer);
+  copyToastTimer = window.setTimeout(() => {
+    copyEmailButton.classList.remove("is-copied");
+  }, 1000);
+});
